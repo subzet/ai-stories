@@ -1,0 +1,52 @@
+---
+// src/pages/index.astro
+import Layout from "../components/Layout.astro";
+---
+
+<Layout title="Cuentos de Buenas Noches">
+  <main class="bg-gray-100 min-h-screen">
+    <section class="hero py-20">
+      <div class="container mx-auto px-4">
+        <div class="hero-content max-w-3xl mx-auto text-center">
+          <h1 class="text-4xl font-bold mb-4">Cuentos de Buenas Noches</h1>
+          <p class="text-lg mb-8">
+            Crea cuentos mágicos para tus hijos con nuestra aplicación de
+            Inteligencia Artificial en español.
+          </p>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >Comienza Ahora</button
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="features py-20">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="feature text-center">
+            <h2 class="text-xl font-bold mb-2">Cuentos Personalizados</h2>
+            <p class="text-gray-600">
+              Genera cuentos únicos y personalizados para tus hijos con solo
+              unos clics.
+            </p>
+          </div>
+          <div class="feature text-center">
+            <h2 class="text-xl font-bold mb-2">Interfaz Sencilla</h2>
+            <p class="text-gray-600">
+              Nuestra aplicación es fácil de usar y accesible para todos los
+              padres.
+            </p>
+          </div>
+          <div class="feature text-center">
+            <h2 class="text-xl font-bold mb-2">Powered by AI</h2>
+            <p class="text-gray-600">
+              Aprovecha la potencia de la Inteligencia Artificial para crear
+              cuentos cautivadores.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
