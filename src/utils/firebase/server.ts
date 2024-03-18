@@ -2,8 +2,11 @@ import { initializeApp } from "firebase-admin/app";
 import admin from 'firebase-admin';
 import { getAuth } from "firebase-admin/auth";
 
+
+const credentialsJson = import.meta.env.DEV ? import.meta.env.FIREBASE_JSON : process.env.FIREBASE_JSON ? process.env.FIREBASE_JSON : "" 
+
 const credentials = JSON.parse(
-    Buffer.from(import.meta.env.FIREBASE_JSON, 'base64').toString('utf8')
+    Buffer.from(credentialsJson, 'base64').toString('utf8')
   ) as any;
 
 export const app = initializeApp({
