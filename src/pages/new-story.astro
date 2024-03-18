@@ -1,0 +1,178 @@
+---
+// src/pages/create-story.astro
+import Layout from "../components/Layout.astro";
+
+const availableCharacters = [
+  "Rey",
+  "Reina",
+  "Princesa",
+  "Príncipe",
+  "Dragón",
+  "Bruja",
+  "Hada",
+  "Caballero",
+  "Pirata",
+];
+
+const availableValues = [
+  "Coraje",
+  "Amistad",
+  "Humildad",
+  "Perseverancia",
+  "Generosidad",
+  "Honestidad",
+  "Respeto",
+  "Responsabilidad",
+  "Tolerancia",
+];
+---
+
+<Layout title="Crear historia">
+  <main
+    class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900"
+  >
+    <div
+      class="max-w-md mx-auto p-4 bg-white dark:bg-gray-800 rounded-md shadow-md"
+    >
+      <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+        Nueva historia
+      </h2>
+
+      <form
+        hx-post="/create-story"
+        hx-target="#create-story-output"
+        hx-swap="outerHTML"
+      >
+        <div class="mb-4 flex flex-col">
+          <label
+            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+            for="age"
+          >
+            Edad
+            <div>
+              <span class="text-sm text-gray-500"
+                >Esto afectará la complejidad de la historia</span
+              >
+            </div>
+          </label>
+
+          <input
+            name="age"
+            type="range"
+            min="2"
+            max="10"
+            class="w-full"
+            id="age"
+            value="6"
+          />
+          <div class="text-gray-700 dark:text-gray-300 mt-1">
+            <span id="age-value"></span> años
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+            for="characters"
+          >
+            Personajes
+            <div>
+              <span class="text-sm text-gray-500"
+                >Elige los personajes principales de la historia</span
+              >
+            </div>
+          </label>
+
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Add more character checkboxes here -->
+            {
+              availableCharacters.map((character) => {
+                return (
+                  <>
+                    <input
+                      type="checkbox"
+                      name="characters"
+                      value={character}
+                      id={character.toLocaleLowerCase()}
+                      class="hidden peer"
+                    />
+                    <label
+                      for={character.toLocaleLowerCase()}
+                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                    >
+                      {character}
+                    </label>
+                  </>
+                );
+              })
+            }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+            for="characters"
+          >
+            Valores de la historia
+            <div>
+              <span class="text-sm text-gray-500"
+                >Elige los valores que deseas ilustrar con esta historia</span
+              >
+            </div>
+          </label>
+
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Add more character checkboxes here -->
+            {
+              availableValues.map((value) => {
+                return (
+                  <>
+                    <input
+                      type="checkbox"
+                      name="characters"
+                      value={value}
+                      id={value.toLocaleLowerCase()}
+                      class="hidden peer"
+                    />
+                    <label
+                      for={value.toLocaleLowerCase()}
+                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                    >
+                      {value}
+                    </label>
+                  </>
+                );
+              })
+            }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+            for="name"
+          >
+            Tu personaje
+            <span class="text-sm text-gray-500">(opcional)</span>
+          </label>
+          <input
+            name="name"
+            type="text"
+            maxlength="20"
+            placeholder="Nombre del personaje"
+            class="w-full px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="name"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
+        >
+          Crear historia
+        </button>
+      </form>
+    </div>
+  </main>
+</Layout>
