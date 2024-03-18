@@ -1,6 +1,7 @@
 ---
 import { getUser } from "../utils/firebase/server";
 import ThemeChangeButton from "./ThemeChangeButton.astro";
+import Dropdown from "./Dropdown.astro";
 
 const user = await getUser(Astro.cookies.get("session")?.value);
 ---
@@ -11,32 +12,102 @@ const user = await getUser(Astro.cookies.get("session")?.value);
       >Cuentos de Buenas Noches</a
     >
 
-    <!-- Hamburger Icon -->
-    <button @click="open = !open" class="lg:hidden">
-      <svg
-        class="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        ><path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"></path></svg
-      >
-    </button>
+    <!-- Mobile Dropdown -->
+    <div class="lg:hidden flex items-center gap-2">
+      <ThemeChangeButton />
+      <Dropdown>
+        <div slot="dropdown-trigger">
+          <button class="">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"></path></svg
+            >
+          </button>
+        </div>
+        <div
+          slot="dropdown-content"
+          class="flex flex-col justify-between gap-2"
+        >
+          {
+            user ? (
+              <>
+                <div>
+                  <span class="text-gray-800 dark:text-white font-bold">
+                    {user?.displayName}
+                  </span>
+                </div>
+                <div>
+                  <a href="/profile">Perfil</a>
+                </div>
+                <div>
+                  <a href="/stories">Mis historias</a>
+                </div>
+                <div>
+                  <a href="/new-story">Crear historia</a>
+                </div>
+                <div>
+                  <a href="/api/auth/signout">Cerrar Sesión</a>
+                </div>
+              </>
+            ) : (
+              <div>
+                <button
+                  id="google"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                >
+                  Iniciar Sesión
+                </button>
+              </div>
+            )
+          }
+        </div>
+      </Dropdown>
+    </div>
 
     <!-- Menu for larger screens -->
     <div class="hidden lg:flex items-center gap-2">
       <ThemeChangeButton />
       {
         user ? (
-          <img
-            class="h-8 w-8 cursor-pointer rounded-full border border-zinc-500 object-cover shadow-lg hover:shadow-xl"
-            src={user?.photoURL ?? ""}
-            alt="user profile"
-          />
+          <Dropdown>
+            <div slot="dropdown-trigger">
+              <img
+                class="h-8 w-8 cursor-pointer rounded-full border border-zinc-500 object-cover shadow-lg hover:shadow-xl"
+                src={user?.photoURL ?? ""}
+                alt="user profile"
+              />
+            </div>
+            <div
+              slot="dropdown-content"
+              class="flex flex-col justify-between gap-2"
+            >
+              <div>
+                <span class="text-gray-800 dark:text-white font-bold">
+                  {user?.displayName}
+                </span>
+              </div>
+              <div>
+                <a href="/profile">Perfil</a>
+              </div>
+              <div>
+                <a href="/stories">Mis historias</a>
+              </div>
+              <div>
+                <a href="/new-story">Crear historia</a>
+              </div>
+              <div>
+                <a href="/api/auth/signout">Cerrar Sesión</a>
+              </div>
+            </div>
+          </Dropdown>
         ) : (
           <button
             id="google"
@@ -47,50 +118,37 @@ const user = await getUser(Astro.cookies.get("session")?.value);
         )
       }
     </div>
-
-    <!-- Dropdown Menu -->
-    <div
-      x-show="open"
-      @click.outside="open = false"
-      class="fixed top-0 right-0 w-52 z-10 mt-12 bg-white dark:bg-gray-800 shadow-md rounded-lg"
-    >
-      <div class="px-4 py-3 flex-row justify-end items-center">
-        <button
-          class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-          >Iniciar Sesión</button
-        >
-        <ThemeChangeButton />
-      </div>
-    </div>
   </div>
-</nav>
-<script>
-  import {
-    getAuth,
-    inMemoryPersistence,
-    GoogleAuthProvider,
-    signInWithPopup,
-  } from "firebase/auth";
-  import { app } from "../utils/firebase/client";
+  <script>
+    import {
+      getAuth,
+      inMemoryPersistence,
+      GoogleAuthProvider,
+      signInWithPopup,
+    } from "firebase/auth";
+    import { app } from "../utils/firebase/client";
 
-  const auth = getAuth(app);
-  auth.setPersistence(inMemoryPersistence);
+    const auth = getAuth(app);
+    auth.setPersistence(inMemoryPersistence);
 
-  const googleSignin = document.querySelector("#google") as HTMLButtonElement;
+    const googleSignin = document.querySelector("#google") as HTMLButtonElement;
 
-  googleSignin.addEventListener("click", async () => {
-    const provider = new GoogleAuthProvider();
-    const userCredential = await signInWithPopup(auth, provider);
-    const idToken = await userCredential.user.getIdToken();
+    if (googleSignin) {
+      googleSignin.addEventListener("click", async () => {
+        const provider = new GoogleAuthProvider();
+        const userCredential = await signInWithPopup(auth, provider);
+        const idToken = await userCredential.user.getIdToken();
 
-    const res = await fetch("/api/auth/signin", {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
+        const res = await fetch("/api/auth/signin", {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        });
 
-    if (res.redirected) {
-      window.location.assign(res.url);
+        if (res.redirected) {
+          window.location.assign(res.url);
+        }
+      });
     }
-  });
-</script>
+  </script>
+</nav>

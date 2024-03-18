@@ -1,0 +1,18 @@
+---
+
+---
+
+<div x-data="{open:false}">
+  <div @click="open = true">
+    <slot name="dropdown-trigger" @click.away="open=false" />
+  </div>
+  <div
+    x-show="open"
+    @click.outside="open = false"
+    class="fixed top-0 right-0 w-52 z-10 mt-12 bg-white dark:bg-gray-800 shadow-md rounded-lg"
+  >
+    <div class="px-4 py-3">
+      <slot name="dropdown-content" />
+    </div>
+  </div>
+</div>
