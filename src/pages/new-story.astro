@@ -141,32 +141,32 @@ const availableValues = [
             }
           </div>
         </div>
-      </form>
 
-      <div class="mb-4">
-        <label
-          class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
-          for="name"
+        <div class="mb-4">
+          <label
+            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+            for="name"
+          >
+            Tu personaje
+            <span class="text-sm text-gray-500">(opcional)</span>
+          </label>
+          <input
+            name="name"
+            type="text"
+            maxlength="20"
+            placeholder="Nombre del personaje"
+            class="w-full px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="name"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
         >
-          Tu personaje
-          <span class="text-sm text-gray-500">(opcional)</span>
-        </label>
-        <input
-          name="name"
-          type="text"
-          maxlength="20"
-          placeholder="Nombre del personaje"
-          class="w-full px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          id="name"
-        />
-      </div>
-
-      <button
-        type="submit"
-        class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
-      >
-        Crear historia
-      </button>
+          Crear historia
+        </button>
+      </form>
     </div>
   </main>
 </Layout>

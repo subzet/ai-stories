@@ -7,19 +7,27 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate": "drizzle-kit generate:sqlite",
+    "migrate": "tsx --env-file=.env migrate.ts"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/check": "^0.5.9",
     "@astrojs/node": "^8.2.3",
     "@astrojs/tailwind": "^5.1.0",
+    "@libsql/client": "^0.5.6",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@types/alpinejs": "^3.13.9",
     "alpinejs": "^3.13.7",
     "astro": "^4.5.5",
     "astro-htmx": "^1.0.5",
     "astro-icon": "^1.1.0",
+    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.20.14",
+    "drizzle-orm": "^0.30.4",
+    "drizzle-zod": "^0.5.1",
     "firebase": "^10.9.0",
     "firebase-admin": "^12.0.0",
     "htmx.org": "^1.9.11",
@@ -28,6 +36,9 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.3",
-    "@types/node": "^20.11.28"
+    "@types/node": "^20.11.28",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "tsx": "^4.7.1"
   }
 }

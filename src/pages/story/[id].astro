@@ -1,0 +1,62 @@
+---
+import Layout from "../../components/Layout.astro";
+
+
+const pages = [
+  {
+    id: "1",
+    title: "The courageous little king",
+    text: [
+      "Once upon a time, in a kingdom where the sun always shone a bit brighter, there lived a young prince named Sam. Sam had a heart as big as the castle and a spirit as brave as the knights who protected it. One day, King Dad announced a quest: to find the Great Dragon that lived in the forest and ask it to share its wisdom. Princess Sibling, Sam's adventurous sister, wanted to come too.\n",
+      'As they ventured into the forest, they found the Great Dragon looking sad. "Why are you sad?" asked Sam with a gentle voice. The dragon explained that people feared him because he was different, and he felt very lonely. Sam, showing great courage, approached the dragon and said, "We\'re here to be your friends. Everyone is unique, and that\'s what makes the world so interesting!"\n',
+      "Princess Sibling, initially hesitant, saw Sam's honesty and bravery and decided to join in. They spent the day talking and laughing, learning about each other's worlds. The dragon shared tales of ancient magic, and in return, Sam and the princess told him about life in the kingdom.\n",
+      "When it was time to return home, the dragon gifted Sam a small, shimmering scale as a token of their newfound friendship. King Dad was amazed by their courage and honesty. Sam explained, \"We learned that being different isn't scary. It's an opportunity to learn and grow. We should all be tolerant and kind to everyone we meet.\"\n",
+      "The kingdom celebrated their return with a grand feast, and from that day on, the Great Dragon was no longer feared but revered as a wise and gentle friend. Sam and Princess Sibling became heroes, not for slaying a dragon, but for bridging two worlds with courage, honesty, and tolerance.\n",
+      "And so, the kingdom grew kinder, teaching generations that true bravery comes from understanding and accepting others, no matter how different they may seem.",
+      "Once upon a time, in a kingdom where the sun always shone a bit brighter, there lived a young prince named Sam. Sam had a heart as big as the castle and a spirit as brave as the knights who protected it. One day, King Dad announced a quest: to find the Great Dragon that lived in the forest and ask it to share its wisdom. Princess Sibling, Sam's adventurous sister, wanted to come too.\n",
+      'As they ventured into the forest, they found the Great Dragon looking sad. "Why are you sad?" asked Sam with a gentle voice. The dragon explained that people feared him because he was different, and he felt very lonely. Sam, showing great courage, approached the dragon and said, "We\'re here to be your friends. Everyone is unique, and that\'s what makes the world so interesting!"\n',
+      "Princess Sibling, initially hesitant, saw Sam's honesty and bravery and decided to join in. They spent the day talking and laughing, learning about each other's worlds. The dragon shared tales of ancient magic, and in return, Sam and the princess told him about life in the kingdom.\n",
+      "When it was time to return home, the dragon gifted Sam a small, shimmering scale as a token of their newfound friendship. King Dad was amazed by their courage and honesty. Sam explained, \"We learned that being different isn't scary. It's an opportunity to learn and grow. We should all be tolerant and kind to everyone we meet.\"\n",
+      "The kingdom celebrated their return with a grand feast, and from that day on, the Great Dragon was no longer feared but revered as a wise and gentle friend. Sam and Princess Sibling became heroes, not for slaying a dragon, but for bridging two worlds with courage, honesty, and tolerance.\n",
+      "And so, the kingdom grew kinder, teaching generations that true bravery comes from understanding and accepting others, no matter how different they may seem.",
+    ],
+    author: "Manuel Ponsa",
+  },
+];
+
+const { id } = Astro.params;
+
+const page = pages.find((page) => page.id === id);
+if (!page) return Astro.redirect("/404");
+const { title, text, author } = page;
+---
+
+<Layout title={title}>
+  <main class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-4">{title}</h1>
+
+    <!-- Author -->
+    <p class="mb-6 italic">
+      Por {author}
+
+      <!-- Article Content -->
+      <article class="bg-gray-100 p-6 shadow rounded-lg dark:bg-slate-800 dark:text-white">
+        {text.map((p) => <p class="mb-4">{p}</p>)}
+      </article>
+
+      <!-- Buttons -->
+      <div class="flex justify-between mt-6">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Like Button
+        </button>
+        <button
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Share Button
+        </button>
+      </div>
+    </p>
+  </main></Layout
+>
