@@ -38,11 +38,7 @@ const availableValues = [
         Nueva historia
       </h2>
 
-      <form
-        hx-post="/create-story"
-        hx-target="#create-story-output"
-        hx-swap="outerHTML"
-      >
+      <form hx-post="/api/create-story" hx-encoding="multipart/form-data">
         <div class="mb-4 flex flex-col">
           <label
             class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
@@ -84,11 +80,10 @@ const availableValues = [
           </label>
 
           <div class="grid grid-cols-3 gap-2">
-            <!-- Add more character checkboxes here -->
             {
               availableCharacters.map((character) => {
                 return (
-                  <>
+                  <div class="flex">
                     <input
                       type="checkbox"
                       name="characters"
@@ -98,11 +93,11 @@ const availableValues = [
                     />
                     <label
                       for={character.toLocaleLowerCase()}
-                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300 w-full"
                     >
                       {character}
                     </label>
-                  </>
+                  </div>
                 );
               })
             }
@@ -123,56 +118,68 @@ const availableValues = [
           </label>
 
           <div class="grid grid-cols-3 gap-2">
-            <!-- Add more character checkboxes here -->
             {
               availableValues.map((value) => {
                 return (
-                  <>
+                  <div class="flex">
                     <input
                       type="checkbox"
-                      name="characters"
+                      name="values"
                       value={value}
                       id={value.toLocaleLowerCase()}
                       class="hidden peer"
                     />
                     <label
                       for={value.toLocaleLowerCase()}
-                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                      class="peer-checked:bg-blue-500 peer-checked:text-white px-2 py-1 rounded-md text-sm hover:bg-blue-500 hover:text-white transition-colors duration-300 w-full"
                     >
                       {value}
                     </label>
-                  </>
+                  </div>
                 );
               })
             }
           </div>
         </div>
-
-        <div class="mb-4">
-          <label
-            class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
-            for="name"
-          >
-            Tu personaje
-            <span class="text-sm text-gray-500">(opcional)</span>
-          </label>
-          <input
-            name="name"
-            type="text"
-            maxlength="20"
-            placeholder="Nombre del personaje"
-            class="w-full px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            id="name"
-          />
-        </div>
-
-        <button
-          type="submit"
-          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
-        >
-          Crear historia
-        </button>
       </form>
+
+      <div class="mb-4">
+        <label
+          class="block font-medium text-gray-700 dark:text-gray-300 mb-2"
+          for="name"
+        >
+          Tu personaje
+          <span class="text-sm text-gray-500">(opcional)</span>
+        </label>
+        <input
+          name="name"
+          type="text"
+          maxlength="20"
+          placeholder="Nombre del personaje"
+          class="w-full px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="name"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
+      >
+        Crear historia
+      </button>
     </div>
   </main>
 </Layout>
+
+<script>
+  const ageInput = document.getElementById("age");
+  const ageValue = document.getElementById("age-value");
+
+  if (ageValue && ageInput) {
+    ageValue.textContent = ageInput.value;
+
+    ageInput.addEventListener("input", () => {
+      ageValue.textContent = ageInput.value;
+    });
+  }
+</script>
