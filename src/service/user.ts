@@ -1,4 +1,4 @@
-import { and, eq, isNull, like } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { user, type InsertUser, type User } from "../model/user";
 import { database } from "../utils/db";
 

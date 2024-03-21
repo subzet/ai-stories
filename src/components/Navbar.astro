@@ -131,10 +131,6 @@ const user = await getUser(Astro.cookies.get("session")?.value);
     const auth = getAuth(app);
     auth.setPersistence(inMemoryPersistence);
 
-    const googleSignin = document.getElementById(
-      "#google"
-    ) as HTMLButtonElement;
-
     const loginButtons = document.querySelectorAll("#login-button");
 
     for (const loginButton of loginButtons) {
