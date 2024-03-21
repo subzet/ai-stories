@@ -175,10 +175,10 @@ const availableValues = [
   const ageValue = document.getElementById("age-value");
 
   if (ageValue && ageInput) {
-    ageValue.textContent = ageInput.value;
+    ageValue.textContent = ageInput.nodeValue;
 
     ageInput.addEventListener("input", () => {
-      ageValue.textContent = ageInput.value;
+      ageValue.textContent = ageInput.nodeValue;
     });
   }
 </script>

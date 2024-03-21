@@ -1,4 +1,5 @@
 import axios from "axios";
+import { environment } from "../utils/environment";
 
 export interface CreateMessageResponse {
   content: Content[];
@@ -44,7 +45,7 @@ class ClaudeApi {
         message,
         {
           headers: {
-            "x-api-key": import.meta.env.ANTROPIC_API_KEY,
+            "x-api-key": environment.open_ai_api_key,
             "anthropic-version": "2023-06-01",
             "Content-Type": "application/json",
           },

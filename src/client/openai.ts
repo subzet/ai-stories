@@ -1,5 +1,6 @@
 import { OpenAI } from "openai";
+import { environment } from "../utils/environment";
 
 export const openai = new OpenAI({
-  apiKey: import.meta.env.OPEN_AI_API_KEY,
+  apiKey: environment.open_ai_api_key,
 });

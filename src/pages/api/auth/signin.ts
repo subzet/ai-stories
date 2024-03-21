@@ -1,9 +1,9 @@
 import type { APIRoute } from "astro";
 import { app } from "../../../utils/firebase/server";
-import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
+import { getAuth } from "firebase-admin/auth";
 import { userService } from "../../../service/user";
 
-export const GET: APIRoute = async ({ request, cookies, redirect, locals }) => {
+export const GET: APIRoute = async ({ request, cookies, redirect }) => {
   const auth = getAuth(app);
 
   const idToken = request.headers.get("Authorization")?.split("Bearer ")[1];
