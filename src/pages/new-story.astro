@@ -171,8 +171,12 @@ const availableValues = [
 </Layout>
 
 <script>
-  const ageInput = document.getElementById("age");
-  const ageValue = document.getElementById("age-value");
+  const ageInput: HTMLInputElement = document.getElementById(
+    "age"
+  ) as HTMLInputElement;
+  const ageValue: HTMLInputElement = document.getElementById(
+    "age-value"
+  ) as HTMLInputElement;
 
   if (ageValue && ageInput) {
     ageValue.textContent = ageInput.value;

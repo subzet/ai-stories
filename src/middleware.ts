@@ -25,7 +25,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
       externalId: decoded.uid,
     });
 
-    context.locals.user = user;
+    context.locals.user = {
+      name: user.name ?? "",
+      email: user.email,
+      id: user.id,
+      externalId: user.externalId,
+    };
 
     return next();
   } catch (error) {

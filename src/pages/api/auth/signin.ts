@@ -32,6 +32,8 @@ export const GET: APIRoute = async ({ request, cookies, redirect, locals }) => {
 
     return redirect("/");
   } catch (error) {
+    console.log(error);
+
     return new Response("Invalid token", { status: 401 });
   }
 };
