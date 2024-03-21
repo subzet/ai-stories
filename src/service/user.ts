@@ -3,17 +3,39 @@ import { user, type InsertUser, type User } from "../model/user";
 import { database } from "../utils/db";
 
 class UserService {
-  public findByExternalId(externalId: string): Promise<User | undefined> {
-    return database.query.user.findFirst({
+  public async findByExternalId(externalId: string): Promise<User | undefined> {
+    const databaseUser = await database.query.user.findFirst({
       where: and(eq(user.externalId, externalId), isNull(user.deletedAt)),
     });
+
+    if (!databaseUser) {
+      return;
+    }
+
+    return databaseUser;
   }
 
-  async findOrCreateByExternalId(externalId: string, payload: InsertUser) {
-    const existingUser = await this.findByExternalId(externalId);
+  public async findById(id: string): Promise<User | undefined> {
+    const databaseUser = await database.query.user.findFirst({
+      where: and(eq(user.id, id), isNull(user.deletedAt)),
+    });
+
+    if (!databaseUser) {
+      return;
+    }
+
+    return databaseUser;
+  }
+
+  async findOrCreateByExternalId(
+    externalId: string,
+    payload: InsertUser,
+  ): Promise<User> {
+    const existingUser: User | undefined =
+      await this.findByExternalId(externalId);
 
     if (existingUser) {
-      return user;
+      return existingUser;
     }
 
     const newUser = await database

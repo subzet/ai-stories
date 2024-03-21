@@ -8,6 +8,7 @@ export const story = sqliteTable("story", {
   title: text("title").notNull(),
   content: text("content").notNull(),
   authorId: text("author_id").notNull(),
+  parameters: text("parameters").notNull(),
 });
 
 export const insertStorySchema = createInsertSchema(story);

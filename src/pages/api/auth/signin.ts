@@ -3,7 +3,7 @@ import { app } from "../../../utils/firebase/server";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 import { userService } from "../../../service/user";
 
-export const GET: APIRoute = async ({ request, cookies, redirect }) => {
+export const GET: APIRoute = async ({ request, cookies, redirect, locals }) => {
   const auth = getAuth(app);
 
   const idToken = request.headers.get("Authorization")?.split("Bearer ")[1];

@@ -1,30 +1,20 @@
 import type { APIRoute } from "astro";
-import { app } from "../../../utils/firebase/server";
-import { getAuth } from "firebase-admin/auth";
+import { storyCreator } from "../../../service/story-creator";
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
-  const auth = getAuth(app);
+export const POST: APIRoute = async ({ request, redirect, locals }) => {
+  const data = await request.formData();
 
-  const idToken = cookies.get("session");
+  const age = Number(data.get("age") as string);
+  const characters = data.getAll("characters") as string[];
+  const values = data.getAll("values") as string[];
+  const mainCharacterName = data.get("name") as string | undefined;
 
-  if (!idToken) {
-    return new Response(
-      "No token provided",
-      { status: 401 }
-    );
-  }
+  const story = await storyCreator.getNewStory(locals.user.id, {
+    age,
+    characters,
+    values,
+    mainCharacterName,
+  });
 
-  try {
-    await auth.verifyIdToken(idToken.value);
-  } catch (error) {
-    return new Response(
-      "Invalid token",
-      { status: 401 }
-    );
-  }
-
-  
-
-
-  return redirect("/");
+  return redirect("/story/" + story.id);
 };

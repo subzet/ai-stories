@@ -1,0 +1,1 @@
+ALTER TABLE story ADD `parameters` text NOT NULL;
